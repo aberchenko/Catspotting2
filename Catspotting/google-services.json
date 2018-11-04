@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "793441246571",
+    "firebase_url": "https://catspotting-5ae47.firebaseio.com",
+    "project_id": "catspotting-5ae47",
+    "storage_bucket": "catspotting-5ae47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793441246571:android:12a98d0c29cd4d15",
+        "android_client_info": {
+          "package_name": "com.example.catspotting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793441246571-pb4bglgfdv68k5vg1isi0th7ju4gfrrn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.catspotting",
+            "certificate_hash": "389bb5981d02f300f6863a00a7c5fac663e6abe6"
+          }
+        },
+        {
+          "client_id": "793441246571-ovbqcvmmqc2l8uga46bge838v9p74qm7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQXuwlxTJozsLRJRR-CBVozUusemdB_FA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793441246571-ovbqcvmmqc2l8uga46bge838v9p74qm7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
