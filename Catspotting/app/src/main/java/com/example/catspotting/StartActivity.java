@@ -25,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });*/
 
-        loadWithGlide();
+        //loadWithGlide();
     }
 
     public void onClick(View v) {

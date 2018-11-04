@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="20dp"
+    android:orientation="vertical"
+    android:gravity="left">
+
+    <!-- Include other widget or layout tags here. These are considered
+            "child views" or "children" of the linear layout -->
+    <TextView
+        android:id="@+id/username_text_view"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="BobWaters" />
+    <TextView
+        android:id="@+id/description_text_view"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Cat is cool!" />
+    <ImageView
+        android:id="@+id/cat_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <TextView
+        android:id="@+id/tags_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:orientation="horizontal"
+        android:gravity="left">
+        <Button
+            android:id="@+id/love_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Love It" />
+        <Button
+            android:id="@+id/nope_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Nope It" />
+    </LinearLayout>
+
+</LinearLayout>
