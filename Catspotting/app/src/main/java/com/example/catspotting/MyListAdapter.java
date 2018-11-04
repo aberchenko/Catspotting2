@@ -22,9 +22,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHolder> {
-    private int[] mDataset;
+    private List<DataSnapshot> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -49,9 +50,31 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
 
         }
 
-        public void loadData(int index) {
+        public void loadData(DataSnapshot dataSnapshot) {
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            if (dataSnapshot.exists()) {
+                String usernameString = dataSnapshot.child("Username").getValue(String.class);
+                username.setText(usernameString);
+
+                String descriptionString = dataSnapshot.child("Description").getValue(String.class);
+                description.setText(descriptionString);
+
+                GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {};
+                ArrayList<String> tagsList = dataSnapshot.child("Tags").getValue(genericTypeIndicator);
+                String tagsString = "Tags: ";
+                for (int i = 0; i < tagsList.size()-1; i++) {
+                    tagsString += tagsList.get(i) + ", ";
+                }
+                if (tagsList.size() > 0) {
+                    tagsString += tagsList.get(tagsList.size()-1);
+                }
+                tags.setText(tagsString);
+
+                String imageName = dataSnapshot.child("Image").getValue(String.class);
+                loadWithGlide(imageName);
+            }
+
+            /*FirebaseDatabase database = FirebaseDatabase.getInstance();
 
             DatabaseReference myRef = database.getReference().child("Posts").child("" + index);
             myRef.addValueEventListener(new ValueEventListener() {
@@ -88,7 +111,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
                     // Failed to read value
                     System.out.println("Failed to read value." + error.toException());
                 }
-            });
+            });*/
 
             /*FirebaseFirestore db = FirebaseFirestore.getInstance();
             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -145,7 +168,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyListAdapter(int[] myDataset) {
+    public MyListAdapter(List<DataSnapshot> myDataset) {
         mDataset = myDataset;
     }
 
@@ -162,7 +185,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.loadData(mDataset[position]);
+        holder.loadData(mDataset.get(position));
         //holder.description.setText(mDataset[position]);
         //holder.loadWithGlide(mDataset[position]);
     }
@@ -170,6 +193,6 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 }

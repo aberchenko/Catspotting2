@@ -45,11 +45,13 @@
             android:id="@+id/love_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:backgroundTint="@android:color/holo_green_light"
             android:text="Love It" />
         <Button
             android:id="@+id/nope_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:backgroundTint="@android:color/holo_red_light"
             android:text="Nope It" />
     </LinearLayout>
 
