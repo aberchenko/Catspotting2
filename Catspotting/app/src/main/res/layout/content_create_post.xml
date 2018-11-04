@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".CreatePost"
-    tools:showIn="@layout/activity_create_post">
+    tools:context=".PostCreateActivity"
+    tools:showIn="@layout/activity_post_create">
 
     <LinearLayout
         android:layout_width="385dp"
@@ -23,6 +23,7 @@
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="takePic"
             android:text="Load Image" />
 
         <EditText
@@ -72,6 +73,7 @@
                 android:layout_width="76dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:onClick="makePost"
                 android:text="Post"
                 tools:layout_editor_absoluteX="464dp"
                 tools:layout_editor_absoluteY="461dp" />

@@ -31,11 +31,12 @@
         <activity android:name=".EndlessScrollActivity" />
         <activity android:name=".CreatePostActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".CreatePost"
             android:label="@string/title_activity_create_post"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PostCreateActivity"></activity>
     </application>
 
 </manifest>

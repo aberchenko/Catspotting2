@@ -6,4 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".PostCreateActivity">
 
+    <include layout="@layout/content_create_post" />
+
 </android.support.constraint.ConstraintLayout>

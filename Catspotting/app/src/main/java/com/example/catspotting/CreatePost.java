@@ -38,6 +38,8 @@ public class CreatePost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        System.out.println("I arrived!");
+
         catpicwindow = findViewById(R.id.catPicWindow);
         loadImg = findViewById(R.id.button3);
         descriptionBox = findViewById(R.id.editText2);
@@ -46,54 +48,26 @@ public class CreatePost extends AppCompatActivity {
         knownLocal = findViewById(R.id.checkBox2);
         makePost = findViewById(R.id.button4);
 
+        System.out.println("I'm still here");
 
-
-        loadImg.setOnClickListener(new View.OnClickListener() {
+        /*loadImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 takePic();
             }
         });
+        System.out.println("In the middle");
         makePost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 makePost();
             }
         });
-
+        System.out.println("Apparently I'm still around");*/
     }
 
-    private void takePic() {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, 1);
-    }
-
-    private void makePost() {
-        //FILL WITH DATABASE STUFF
-
-    }
-
-    @Override
-    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
 
 
-        if (resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                catpicwindow.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-            }
 
-        }else {
-            //idk...
-            Toast.makeText(this, "You haven't picked an image",Toast.LENGTH_LONG).show();
-        }
-    }
 
 }

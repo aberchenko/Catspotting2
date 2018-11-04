@@ -18,6 +18,8 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
+    static String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         // Code here executes on main thread after user presses button
 
         EditText usernameView = (EditText)findViewById(R.id.usernameText);
-        String username = usernameView.getText().toString();
+        final String username = usernameView.getText().toString();
         EditText passwordView = (EditText)findViewById(R.id.passwdText);
         final String password = passwordView.getText().toString();
 
@@ -42,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String dataPassword = dataSnapshot.child("Password").getValue(String.class);
                     if (password.equals(dataPassword)) {
+                        LoginActivity.username = username;
                         Intent intent = new Intent(me, EndlessScrollActivity.class);
                         startActivity(intent);
                     } else {

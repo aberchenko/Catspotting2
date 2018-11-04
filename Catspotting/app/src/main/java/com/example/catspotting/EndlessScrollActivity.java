@@ -1,6 +1,7 @@
 package com.example.catspotting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +37,12 @@ public class EndlessScrollActivity extends AppCompatActivity {
         getData();
     }
 
+    public void addPost(View v) {
+        Intent intent = new Intent(this, PostCreateActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void getData() {
 
         LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -47,7 +55,7 @@ public class EndlessScrollActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Posts");
         Query myQuery = myRef.orderByChild("Time").limitToLast(100);
-        myQuery.addValueEventListener(new ValueEventListener() {
+        myQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 LinkedList<DataSnapshot> postList = new LinkedList<>();
