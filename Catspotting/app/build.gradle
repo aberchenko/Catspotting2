@@ -29,6 +29,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.1'
     implementation 'com.firebaseui:firebase-ui-storage:4.1.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
+    //Cloud vision API
+    implementation 'com.google.android.gms:play-services-base:11.8.0'
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
+    implementation 'com.google.apis:google-api-services-vision:v1-rev16-1.22.0'
+    implementation ('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude module: 'httpclient'
+    }
+    implementation ('com.google.http-client:google-http-client-gson:1.20.0') {
+        exclude module: 'httpclient'
+    }
+    //end of cloud vision api stuff
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
 
