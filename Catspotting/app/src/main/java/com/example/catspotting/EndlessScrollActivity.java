@@ -1,5 +1,11 @@
 package com.example.catspotting;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +36,14 @@ public class EndlessScrollActivity extends AppCompatActivity {
     }
 
     private void getData() {
+
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //final double myLat = 33.775 * Math.PI / 180;
+        //final double myLong = 84.396 * Math.PI / 180;
+        final double myLat = location.getLatitude() * Math.PI / 180;
+        final double myLong = location.getLongitude() * Math.PI / 180;
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Posts");
         Query myQuery = myRef.orderByChild("Time").limitToLast(100);
@@ -37,8 +51,6 @@ public class EndlessScrollActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 LinkedList<DataSnapshot> postList = new LinkedList<>();
-                double myLat = 33.775 * Math.PI / 180;
-                double myLong = 84.396 * Math.PI / 180;
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     // TODO: handle the post
@@ -88,4 +100,5 @@ public class EndlessScrollActivity extends AppCompatActivity {
         mAdapter = new MyListAdapter(postList);
         mRecyclerView.setAdapter(mAdapter);
     }
+
 }

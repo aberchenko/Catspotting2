@@ -38,6 +38,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
         public TextView tags;
         public Button loveButton;
         public Button nopeButton;
+        public TextView votes;
         public MyViewHolder(View postView) {
             super(postView);
 
@@ -47,6 +48,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
             tags = (TextView)postView.findViewById(R.id.tags_text_view);
             loveButton = (Button)postView.findViewById(R.id.love_button);
             nopeButton = (Button)postView.findViewById(R.id.nope_button);
+            votes = (TextView)postView.findViewById(R.id.votes_text_view);
 
         }
 
@@ -69,6 +71,10 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
                     tagsString += tagsList.get(tagsList.size()-1);
                 }
                 tags.setText(tagsString);
+
+                int loves = dataSnapshot.child("Loves").getValue(Integer.class);
+                int nopes = dataSnapshot.child("Nopes").getValue(Integer.class);
+                votes.setText("" + (loves - nopes));
 
                 String imageName = dataSnapshot.child("Image").getValue(String.class);
                 loadWithGlide(imageName);
