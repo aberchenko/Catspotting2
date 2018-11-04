@@ -40,7 +40,6 @@ public class EndlessScrollActivity extends AppCompatActivity {
     public void addPost(View v) {
         Intent intent = new Intent(this, PostCreateActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void getData() {

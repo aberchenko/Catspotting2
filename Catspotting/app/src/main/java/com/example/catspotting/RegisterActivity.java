@@ -55,7 +55,8 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT);
                     t.show();
                 } else {
-                    database.getReference().child(username).child("Password").setValue(password);
+                    database.getReference().child("Users").child(username).child("Password").setValue(password);
+                    LoginActivity.username = username;
                     Intent intent = new Intent(me, EndlessScrollActivity.class);
                     startActivity(intent);
                 }

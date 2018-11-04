@@ -125,6 +125,12 @@ public class PostCreateActivity extends AppCompatActivity {
 
         System.out.println("I made it to the end");
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            return;
+        }
+
         Intent intent = new Intent(this, EndlessScrollActivity.class);
         startActivity(intent);
     }
