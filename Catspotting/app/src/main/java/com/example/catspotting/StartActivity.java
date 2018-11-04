@@ -2,7 +2,9 @@ package com.example.catspotting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.widget.*;
+import android.view.View;
+import android.content.Intent;
 
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -13,7 +15,23 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        /*final Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                Intent intent = new Intent(this, ScrollingActivity.class);
+
+            }
+        });*/
+
         loadWithGlide();
+    }
+
+    public void onClick(View v) {
+        // Code here executes on main thread after user presses button
+        Intent intent = new Intent(this, EndlessScrollActivity.class);
+        startActivity(intent);
     }
 
     public void loadWithGlide() {
