@@ -26,7 +26,9 @@
             android:label="@string/title_activity_scrolling"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".EndlessScrollActivity" />
-        <activity android:name=".CreatePostActivity"></activity>
+        <activity android:name=".CreatePostActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
