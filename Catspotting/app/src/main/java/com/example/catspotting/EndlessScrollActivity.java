@@ -26,7 +26,9 @@ public class EndlessScrollActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String[] myDataset = {"20180317_132504_001.jpg", "20180323_162849.jpg"};
+        //String[] myDataset = {"20180317_132504_001.jpg", "20180323_162849.jpg"};
+        //String[] myDataset = {"h4R0yylGVIWLbV5UThsS"};
+        int[] myDataset = {1};
         // specify an adapter (see also next example)
         mAdapter = new MyListAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);

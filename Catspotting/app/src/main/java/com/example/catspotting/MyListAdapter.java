@@ -1,6 +1,7 @@
 package com.example.catspotting;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHolder> {
-    private String[] mDataset;
+    private int[] mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -39,6 +49,77 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
 
         }
 
+        public void loadData(int index) {
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+            DatabaseReference myRef = database.getReference().child("Posts").child("" + index);
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    System.out.println("Value is: " + dataSnapshot);
+                    if (dataSnapshot.exists()) {
+                        String usernameString = dataSnapshot.child("Username").getValue(String.class);
+                        username.setText(usernameString);
+
+                        String descriptionString = dataSnapshot.child("Description").getValue(String.class);
+                        description.setText(descriptionString);
+
+                        GenericTypeIndicator<ArrayList<String>> genericTypeIndicator = new GenericTypeIndicator<ArrayList<String>>() {};
+                        ArrayList<String> tagsList = dataSnapshot.child("Tags").getValue(genericTypeIndicator);
+                        String tagsString = "Tags: ";
+                        for (int i = 0; i < tagsList.size()-1; i++) {
+                            tagsString += tagsList.get(i) + ", ";
+                        }
+                        if (tagsList.size() > 0) {
+                            tagsString += tagsList.get(tagsList.size()-1);
+                        }
+                        tags.setText(tagsString);
+
+                        String imageName = dataSnapshot.child("Image").getValue(String.class);
+                        loadWithGlide(imageName);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    System.out.println("Failed to read value." + error.toException());
+                }
+            });
+
+            /*FirebaseFirestore db = FirebaseFirestore.getInstance();
+            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                    .setTimestampsInSnapshotsEnabled(true)
+                    .build();
+            db.setFirestoreSettings(settings);
+
+            CollectionReference posts = db.collection("Posts");
+            System.out.println("Guess what: " + document);
+            DocumentReference docRef = posts.document(document);
+            System.out.println("Got here");
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    System.out.println("Got here 2");
+                    if (task.isSuccessful()) {
+                        System.out.println("Got here 3");
+                        DocumentSnapshot document = task.getResult();
+                        System.out.println("Got here 4");
+                        if (document.exists()) {
+                            System.out.println("DocumentSnapshot data: " + document.getData());
+                        } else {
+                            System.out.println( "No such document");
+                        }
+                    } else {
+                        System.out.println( "get failed with " + task.getException());
+                    }
+                }
+            });*/
+        }
+
         public void loadWithGlide(String image) {
             // [START storage_load_with_glide]
             FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -56,7 +137,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
             // (See MyAppGlideModule for Loader registration)
             GlideApp.with(imageView.getContext() /* context */)
                     .load(gsReference)
-                    .centerCrop()
+                    //.centerCrop()
                     .placeholder(R.drawable.computer_loading_symbol)
                     .into(imageView);
             // [END storage_load_with_glide]
@@ -64,7 +145,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyListAdapter(String[] myDataset) {
+    public MyListAdapter(int[] myDataset) {
         mDataset = myDataset;
     }
 
@@ -81,8 +162,9 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyViewHold
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.description.setText(mDataset[position]);
-        holder.loadWithGlide(mDataset[position]);
+        holder.loadData(mDataset[position]);
+        //holder.description.setText(mDataset[position]);
+        //holder.loadWithGlide(mDataset[position]);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
